@@ -1,12 +1,9 @@
--- PHIEN BAN SUA LOI SSMS: tao database AutoRentDB_V2 rieng, KHONG xoa database cu.
--- Chạy toàn bộ script này bằng SQL Server Management Studio (SSMS).
--- Dữ liệu mẫu chỉ tạo lần đầu, không xóa dữ liệu cũ.
+
 IF DB_ID(N'AutoRentDB_V2') IS NULL
     CREATE DATABASE AutoRentDB_V2;
 GO
 USE AutoRentDB_V2;
 GO
--- Neu da co bang Categories khac cau truc thi thong bao ro rang.
 IF OBJECT_ID(N'dbo.Categories', N'U') IS NOT NULL AND (
     COL_LENGTH(N'dbo.Categories', N'Name') IS NULL OR
     COL_LENGTH(N'dbo.Categories', N'Description') IS NULL
@@ -104,7 +101,3 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name='IX_OrderItems_VehicleDates' AND object_id=OBJECT_ID('dbo.OrderItems'))
     CREATE INDEX IX_OrderItems_VehicleDates ON dbo.OrderItems(VehicleId,StartDate,EndDate);
 GO
--- Sau khi ĐĂNG KÝ tài khoản trên web, cấp Admin bằng câu lệnh dưới.
--- Nhớ đổi email thành email bạn vừa đăng ký:
--- UPDATE dbo.Users SET Role = N'Admin' WHERE Email = N'email-cua-ban@example.com';
--- Cơ sở dữ liệu đầu tiên không cấp sẵn tài khoản Admin/mật khẩu mặc định.
