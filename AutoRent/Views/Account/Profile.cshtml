@@ -1,0 +1,13 @@
+﻿@model AutoRent.ViewModels.ProfileVm
+@{ ViewBag.Title="Hồ sơ khách hàng"; }
+<div class="row justify-content-center py-4"><div class="col-md-7"><div class="card p-4">
+    <h2 class="fw-bold">👤 Hồ sơ khách hàng</h2>
+    @using(Html.BeginForm("Profile","Account",FormMethod.Post)) {
+        @Html.AntiForgeryToken()@Html.ValidationSummary(false,"",new{@class="text-danger mb-3"})
+        <div class="mb-3"><label class="form-label">Họ tên</label>@Html.TextBoxFor(x=>x.FullName,new{@class="form-control",required="required"})</div>
+        <div class="mb-3"><label class="form-label">Email (không đổi)</label>@Html.TextBoxFor(x=>x.Email,new{@class="form-control",type="email",@readonly="readonly"})</div>
+        <div class="mb-3"><label class="form-label">Số điện thoại</label>@Html.TextBoxFor(x=>x.Phone,new{@class="form-control",maxlength="20"})</div>
+        <button type="submit" class="btn btn-primary">Lưu hồ sơ</button>
+        <a class="btn btn-outline-secondary" href="@Url.Action("Index","Orders")">Lịch sử thuê xe</a>
+    }
+</div></div></div>

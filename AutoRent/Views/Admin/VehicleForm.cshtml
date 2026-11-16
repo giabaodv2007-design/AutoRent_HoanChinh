@@ -1,0 +1,23 @@
+﻿@model AutoRent.ViewModels.VehicleFormVm
+@{ bool edit=ViewBag.IsEdit==true; ViewBag.Title=edit?"Chỉnh sửa xe":"Thêm xe"; }
+<h2 class="fw-bold">@ViewBag.Title</h2>
+<div class="card p-4 col-xl-9">
+@using(Html.BeginForm(edit?"VehicleEdit":"VehicleCreate","Admin",FormMethod.Post,new{enctype="multipart/form-data"})) {
+    @Html.AntiForgeryToken()@Html.HiddenFor(x=>x.VehicleId)
+    @Html.ValidationSummary(false,"",new{@class="text-danger mb-3"})
+    <div class="row g-3">
+        <div class="col-md-6"><label class="form-label">Tên xe *</label>@Html.TextBoxFor(x=>x.Name,new{@class="form-control",required="required",maxlength="120"})</div>
+        <div class="col-md-6"><label class="form-label">Danh mục *</label>@Html.DropDownListFor(x=>x.CategoryId,(SelectList)ViewBag.Categories,"-- Chọn danh mục --",new{@class="form-select",required="required"})</div>
+        <div class="col-md-6"><label class="form-label">Thương hiệu</label>@Html.TextBoxFor(x=>x.Brand,new{@class="form-control",maxlength="80"})</div>
+        <div class="col-md-6"><label class="form-label">Ảnh (JPG/PNG/GIF ≤ 3MB)</label><input class="form-control" type="file" name="image" accept=".jpg,.jpeg,.png,.gif,image/jpeg,image/png,image/gif" /></div>
+        <div class="col-md-4"><label class="form-label">Giá thuê/ngày *</label>@Html.TextBoxFor(m=>m.DailyPrice,new{@class="form-control",type="number",min="1000",step="1000"})@Html.ValidationMessageFor(m => m.DailyPrice, "", new {@class="text-danger"})</div>
+        <div class="col-md-4"><label class="form-label">Tiền cọc</label>@Html.TextBoxFor(x=>x.Deposit,"{0:0}",new{@class="form-control",type="number",min="0",step="1000"})</div>
+        <div class="col-md-4"><label class="form-label">Số xe trong đội *</label>@Html.TextBoxFor(x=>x.Quantity,new{@class="form-control",type="number",min="0",max="10000"})</div>
+        <div class="col-12"><label class="form-label">Mô tả</label>@Html.TextAreaFor(x=>x.Description,new{@class="form-control",rows="3",maxlength="1000"})</div>
+        <div class="col-12"><label>@Html.CheckBoxFor(x=>x.IsAvailable) Cho phép thuê</label></div>
+        @if(edit) {<div class="col-12"><p>Ảnh hiện tại:</p><img src="@Url.Content(Model.ImageUrl??"~/Content/images/placeholder.svg")" width="230" style="object-fit:contain" /></div>}
+    </div>
+    <button class="btn btn-primary mt-3" type="submit">Lưu xe</button>
+    <a class="btn btn-secondary mt-3" href="@Url.Action("Vehicles")">Quay lại</a>
+}
+</div>

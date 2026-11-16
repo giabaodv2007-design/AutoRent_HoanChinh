@@ -1,0 +1,17 @@
+﻿<nav class="admin-menu d-flex flex-wrap align-items-center gap-2 mb-4">
+    <a class="btn btn-outline-primary btn-sm" href="@Url.Action("Index","Admin")">Tổng quan</a>
+    <div class="dropdown"><button class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">Quản lý danh mục</button>
+        <ul class="dropdown-menu"><li><a class="dropdown-item" href="@Url.Action("Categories","Admin")">Danh sách danh mục</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("CategoryCreate","Admin")">Thêm danh mục</a></li></ul>
+    </div>
+    <div class="dropdown"><button class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">Quản lý hàng hóa (xe)</button>
+        <ul class="dropdown-menu"><li><a class="dropdown-item" href="@Url.Action("Vehicles","Admin")">Danh sách xe</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("VehicleCreate","Admin")">Thêm xe mới</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Inventory","Admin")">Kho xe / số xe trống</a></li></ul>
+    </div>
+    <a class="btn btn-outline-primary btn-sm" href="@Url.Action("Orders","Admin")">Đơn hàng</a>
+    <div class="dropdown"><button class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">Tài khoản</button>
+        <ul class="dropdown-menu"><li><a class="dropdown-item" href="@Url.Action("Users","Admin")">Quản trị viên</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Customers","Admin")">Khách hàng (xem)</a></li></ul>
+    </div>
+</nav>

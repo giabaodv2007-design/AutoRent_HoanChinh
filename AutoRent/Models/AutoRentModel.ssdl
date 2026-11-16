@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ssdl:Schema xmlns:ssdl="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx" xmlns:msl="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Namespace="AutoRentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+        <ssdl:EntityContainer Name="AutoRentModelStoreContainer">
+          <ssdl:EntitySet Name="Categories" EntityType="AutoRentModel.Store.Category" Schema="dbo" Table="Categories"/>
+          <ssdl:EntitySet Name="Vehicles" EntityType="AutoRentModel.Store.Vehicle" Schema="dbo" Table="Vehicles"/>
+          <ssdl:EntitySet Name="Users" EntityType="AutoRentModel.Store.User" Schema="dbo" Table="Users"/>
+          <ssdl:EntitySet Name="Orders" EntityType="AutoRentModel.Store.Order" Schema="dbo" Table="Orders"/>
+          <ssdl:EntitySet Name="OrderItems" EntityType="AutoRentModel.Store.OrderItem" Schema="dbo" Table="OrderItems"/>
+        </ssdl:EntityContainer>
+        <ssdl:EntityType Name="Category">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="CategoryId"/>
+          </ssdl:Key>
+          <ssdl:Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
+          <ssdl:Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="80"/>
+          <ssdl:Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="255"/>
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="Vehicle">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="VehicleId"/>
+          </ssdl:Key>
+          <ssdl:Property Name="VehicleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
+          <ssdl:Property Name="CategoryId" Type="int" Nullable="false"/>
+          <ssdl:Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="120"/>
+          <ssdl:Property Name="Brand" Type="nvarchar" Nullable="true" MaxLength="80"/>
+          <ssdl:Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="1000"/>
+          <ssdl:Property Name="DailyPrice" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="Deposit" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="ImageUrl" Type="nvarchar" Nullable="true" MaxLength="300"/>
+          <ssdl:Property Name="IsAvailable" Type="bit" Nullable="false"/>
+          <ssdl:Property Name="Quantity" Type="int" Nullable="false" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="User">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="UserId"/>
+          </ssdl:Key>
+          <ssdl:Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
+          <ssdl:Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="100"/>
+          <ssdl:Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150"/>
+          <ssdl:Property Name="PasswordHash" Type="nvarchar" Nullable="false" MaxLength="200"/>
+          <ssdl:Property Name="Role" Type="nvarchar" Nullable="false" MaxLength="20"/>
+          <ssdl:Property Name="IsActive" Type="bit" Nullable="false"/>
+          <ssdl:Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="20" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="Order">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="OrderId"/>
+          </ssdl:Key>
+          <ssdl:Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
+          <ssdl:Property Name="UserId" Type="int" Nullable="false"/>
+          <ssdl:Property Name="CreatedAt" Type="datetime2" Nullable="false" Precision="7"/>
+          <ssdl:Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20"/>
+          <ssdl:Property Name="TotalRent" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="TotalDeposit" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="CustomerPhone" Type="nvarchar" Nullable="false" MaxLength="20"/>
+          <ssdl:Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="500"/>
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="OrderItem">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="OrderItemId"/>
+          </ssdl:Key>
+          <ssdl:Property Name="OrderItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity"/>
+          <ssdl:Property Name="OrderId" Type="int" Nullable="false"/>
+          <ssdl:Property Name="VehicleId" Type="int" Nullable="false"/>
+          <ssdl:Property Name="StartDate" Type="date" Nullable="false"/>
+          <ssdl:Property Name="EndDate" Type="date" Nullable="false"/>
+          <ssdl:Property Name="Days" Type="int" Nullable="false"/>
+          <ssdl:Property Name="Quantity" Type="int" Nullable="false" />
+          <ssdl:Property Name="PricePerDay" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="Deposit" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+          <ssdl:Property Name="RentAmount" Type="decimal" Nullable="false" Precision="18" Scale="2"/>
+        </ssdl:EntityType>
+      </ssdl:Schema>
+    

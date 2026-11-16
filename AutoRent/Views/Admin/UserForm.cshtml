@@ -1,0 +1,14 @@
+﻿@model AutoRent.ViewModels.AdminUserFormVm
+@{ bool edit=Model.UserId>0;ViewBag.Title=edit?"Sửa quản trị viên":"Tạo quản trị viên"; }
+<h2 class="fw-bold">@ViewBag.Title</h2>
+<div class="card col-lg-7 p-4">
+@using(Html.BeginForm(edit?"UserEdit":"UserCreate","Admin",FormMethod.Post)) {
+    @Html.AntiForgeryToken()@Html.HiddenFor(x=>x.UserId)
+    @Html.ValidationSummary(false,"",new{@class="text-danger mb-3"})
+    <div class="mb-3"><label class="form-label">Họ tên *</label>@Html.TextBoxFor(x=>x.FullName,new{@class="form-control",required="required"})</div>
+    <div class="mb-3"><label class="form-label">Email *</label>@Html.TextBoxFor(x=>x.Email,new{@class="form-control",type="email",required="required"})</div>
+    <div class="mb-3"><label class="form-label">Mật khẩu @(edit?"(để trống nếu không đổi)":"*")</label>@Html.PasswordFor(x=>x.Password,new{@class="form-control",minlength="6"})</div>
+    <div class="mb-3"><label>@Html.CheckBoxFor(x=>x.IsActive) Đang hoạt động</label></div>
+    <button type="submit" class="btn btn-primary">Lưu quản trị viên</button><a class="btn btn-secondary" href="@Url.Action("Users")">Quay lại</a>
+}
+</div>

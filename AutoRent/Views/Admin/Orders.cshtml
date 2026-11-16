@@ -1,0 +1,5 @@
+﻿@model IEnumerable<AutoRent.ViewModels.OrderRowVm>
+@{ ViewBag.Title="Quản lý đơn hàng"; }
+<h2 class="fw-bold">Đơn thuê xe</h2>
+<p class="text-muted">Chỉ xem chi tiết và đổi trạng thái. Không có nút thêm/sửa/xóa đơn hàng.</p>
+@Html.Partial("~/Views/Shared/_OrdersTable.cshtml",Model,new ViewDataDictionary{{"IsAdmin",true}})

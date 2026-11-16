@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx" xmlns:msl="http://schemas.microsoft.com/ado/2009/11/mapping/cs" xmlns:ssdl="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Version="3.0">
+  <edmx:Runtime>
+    <edmx:StorageModels>
+      <ssdl:Schema Namespace="AutoRentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+        <ssdl:EntityContainer Name="AutoRentModelStoreContainer">
+          <ssdl:EntitySet Name="Categories" EntityType="AutoRentModel.Store.Category" Schema="dbo" Table="Categories" />
+          <ssdl:EntitySet Name="Vehicles" EntityType="AutoRentModel.Store.Vehicle" Schema="dbo" Table="Vehicles" />
+          <ssdl:EntitySet Name="Users" EntityType="AutoRentModel.Store.User" Schema="dbo" Table="Users" />
+          <ssdl:EntitySet Name="Orders" EntityType="AutoRentModel.Store.Order" Schema="dbo" Table="Orders" />
+          <ssdl:EntitySet Name="OrderItems" EntityType="AutoRentModel.Store.OrderItem" Schema="dbo" Table="OrderItems" />
+        </ssdl:EntityContainer>
+        <ssdl:EntityType Name="Category">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="CategoryId" />
+          </ssdl:Key>
+          <ssdl:Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <ssdl:Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="80" />
+          <ssdl:Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="255" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="Vehicle">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="VehicleId" />
+          </ssdl:Key>
+          <ssdl:Property Name="VehicleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <ssdl:Property Name="CategoryId" Type="int" Nullable="false" />
+          <ssdl:Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="120" />
+          <ssdl:Property Name="Brand" Type="nvarchar" Nullable="true" MaxLength="80" />
+          <ssdl:Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="1000" />
+          <ssdl:Property Name="DailyPrice" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="Deposit" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="ImageUrl" Type="nvarchar" Nullable="true" MaxLength="300" />
+          <ssdl:Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <ssdl:Property Name="Quantity" Type="int" Nullable="false" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="User">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="UserId" />
+          </ssdl:Key>
+          <ssdl:Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <ssdl:Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <ssdl:Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <ssdl:Property Name="PasswordHash" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <ssdl:Property Name="Role" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <ssdl:Property Name="IsActive" Type="bit" Nullable="false" />
+          <ssdl:Property Name="Phone" Type="nvarchar" Nullable="true" MaxLength="20" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="Order">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="OrderId" />
+          </ssdl:Key>
+          <ssdl:Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <ssdl:Property Name="UserId" Type="int" Nullable="false" />
+          <ssdl:Property Name="CreatedAt" Type="datetime2" Nullable="false" Precision="7" />
+          <ssdl:Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <ssdl:Property Name="TotalRent" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="TotalDeposit" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="CustomerPhone" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <ssdl:Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="500" />
+        </ssdl:EntityType>
+        <ssdl:EntityType Name="OrderItem">
+          <ssdl:Key>
+            <ssdl:PropertyRef Name="OrderItemId" />
+          </ssdl:Key>
+          <ssdl:Property Name="OrderItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <ssdl:Property Name="OrderId" Type="int" Nullable="false" />
+          <ssdl:Property Name="VehicleId" Type="int" Nullable="false" />
+          <ssdl:Property Name="StartDate" Type="date" Nullable="false" />
+          <ssdl:Property Name="EndDate" Type="date" Nullable="false" />
+          <ssdl:Property Name="Days" Type="int" Nullable="false" />
+          <ssdl:Property Name="Quantity" Type="int" Nullable="false" />
+          <ssdl:Property Name="PricePerDay" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="Deposit" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <ssdl:Property Name="RentAmount" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+        </ssdl:EntityType>
+      </ssdl:Schema>
+    </edmx:StorageModels>
+    <edmx:ConceptualModels>
+      <edm:Schema Namespace="AutoRentModel" Alias="Self">
+        <edm:EntityContainer Name="AutoRentEntities" annotation:LazyLoadingEnabled="false">
+          <edm:EntitySet Name="Categories" EntityType="AutoRentModel.Category" />
+          <edm:EntitySet Name="Vehicles" EntityType="AutoRentModel.Vehicle" />
+          <edm:EntitySet Name="Users" EntityType="AutoRentModel.User" />
+          <edm:EntitySet Name="Orders" EntityType="AutoRentModel.Order" />
+          <edm:EntitySet Name="OrderItems" EntityType="AutoRentModel.OrderItem" />
+        </edm:EntityContainer>
+        <edm:EntityType Name="Category">
+          <edm:Key>
+            <edm:PropertyRef Name="CategoryId" />
+          </edm:Key>
+          <edm:Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <edm:Property Name="Name" Type="String" Nullable="false" MaxLength="80" Unicode="true" />
+          <edm:Property Name="Description" Type="String" Nullable="true" MaxLength="255" Unicode="true" />
+        </edm:EntityType>
+        <edm:EntityType Name="Vehicle">
+          <edm:Key>
+            <edm:PropertyRef Name="VehicleId" />
+          </edm:Key>
+          <edm:Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <edm:Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <edm:Property Name="Name" Type="String" Nullable="false" MaxLength="120" Unicode="true" />
+          <edm:Property Name="Brand" Type="String" Nullable="true" MaxLength="80" Unicode="true" />
+          <edm:Property Name="Description" Type="String" Nullable="true" MaxLength="1000" Unicode="true" />
+          <edm:Property Name="DailyPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="Deposit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="ImageUrl" Type="String" Nullable="true" MaxLength="300" Unicode="true" />
+          <edm:Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <edm:Property Name="Quantity" Type="Int32" Nullable="false" />
+        </edm:EntityType>
+        <edm:EntityType Name="User">
+          <edm:Key>
+            <edm:PropertyRef Name="UserId" />
+          </edm:Key>
+          <edm:Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <edm:Property Name="FullName" Type="String" Nullable="false" MaxLength="100" Unicode="true" />
+          <edm:Property Name="Email" Type="String" Nullable="false" MaxLength="150" Unicode="true" />
+          <edm:Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="200" Unicode="true" />
+          <edm:Property Name="Role" Type="String" Nullable="false" MaxLength="20" Unicode="true" />
+          <edm:Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <edm:Property Name="Phone" Type="String" Nullable="true" MaxLength="20" Unicode="true" />
+        </edm:EntityType>
+        <edm:EntityType Name="Order">
+          <edm:Key>
+            <edm:PropertyRef Name="OrderId" />
+          </edm:Key>
+          <edm:Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <edm:Property Name="UserId" Type="Int32" Nullable="false" />
+          <edm:Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <edm:Property Name="Status" Type="String" Nullable="false" MaxLength="20" Unicode="true" />
+          <edm:Property Name="TotalRent" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="TotalDeposit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="CustomerPhone" Type="String" Nullable="false" MaxLength="20" Unicode="true" />
+          <edm:Property Name="Note" Type="String" Nullable="true" MaxLength="500" Unicode="true" />
+        </edm:EntityType>
+        <edm:EntityType Name="OrderItem">
+          <edm:Key>
+            <edm:PropertyRef Name="OrderItemId" />
+          </edm:Key>
+          <edm:Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <edm:Property Name="OrderId" Type="Int32" Nullable="false" />
+          <edm:Property Name="VehicleId" Type="Int32" Nullable="false" />
+          <edm:Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <edm:Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <edm:Property Name="Days" Type="Int32" Nullable="false" />
+          <edm:Property Name="Quantity" Type="Int32" Nullable="false" />
+          <edm:Property Name="PricePerDay" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="Deposit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <edm:Property Name="RentAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </edm:EntityType>
+      </edm:Schema>
+    </edmx:ConceptualModels>
+    <edmx:Mappings>
+      <msl:Mapping Space="C-S">
+        <msl:EntityContainerMapping StorageEntityContainer="AutoRentModelStoreContainer" CdmEntityContainer="AutoRentEntities">
+          <msl:EntitySetMapping Name="Categories">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Category">
+              <msl:MappingFragment StoreEntitySet="Categories">
+                <msl:ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <msl:ScalarProperty Name="Name" ColumnName="Name" />
+                <msl:ScalarProperty Name="Description" ColumnName="Description" />
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Vehicles">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Vehicle">
+              <msl:MappingFragment StoreEntitySet="Vehicles">
+                <msl:ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <msl:ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <msl:ScalarProperty Name="Name" ColumnName="Name" />
+                <msl:ScalarProperty Name="Brand" ColumnName="Brand" />
+                <msl:ScalarProperty Name="Description" ColumnName="Description" />
+                <msl:ScalarProperty Name="DailyPrice" ColumnName="DailyPrice" />
+                <msl:ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <msl:ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <msl:ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <msl:ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Users">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.User">
+              <msl:MappingFragment StoreEntitySet="Users">
+                <msl:ScalarProperty Name="UserId" ColumnName="UserId" />
+                <msl:ScalarProperty Name="FullName" ColumnName="FullName" />
+                <msl:ScalarProperty Name="Email" ColumnName="Email" />
+                <msl:ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <msl:ScalarProperty Name="Role" ColumnName="Role" />
+                <msl:ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <msl:ScalarProperty Name="Phone" ColumnName="Phone" />
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Orders">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Order">
+              <msl:MappingFragment StoreEntitySet="Orders">
+                <msl:ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <msl:ScalarProperty Name="UserId" ColumnName="UserId" />
+                <msl:ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <msl:ScalarProperty Name="Status" ColumnName="Status" />
+                <msl:ScalarProperty Name="TotalRent" ColumnName="TotalRent" />
+                <msl:ScalarProperty Name="TotalDeposit" ColumnName="TotalDeposit" />
+                <msl:ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <msl:ScalarProperty Name="Note" ColumnName="Note" />
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="OrderItems">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.OrderItem">
+              <msl:MappingFragment StoreEntitySet="OrderItems">
+                <msl:ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+                <msl:ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <msl:ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <msl:ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <msl:ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <msl:ScalarProperty Name="Days" ColumnName="Days" />
+                <msl:ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <msl:ScalarProperty Name="PricePerDay" ColumnName="PricePerDay" />
+                <msl:ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <msl:ScalarProperty Name="RentAmount" ColumnName="RentAmount" />
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+        </msl:EntityContainerMapping>
+      </msl:Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet />
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <edmx:DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="false" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>

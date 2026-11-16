@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AutoRent.ViewModels.VehicleListVm>
+<div class="card table-responsive p-2"><table class="table mb-0"><thead><tr><th>Xe</th><th>Tổng số xe</th><th>Đang giữ chỗ hôm nay</th><th>Còn trống hôm nay</th><th>Tổng lượt đã đặt</th><th></th></tr></thead><tbody>
+@foreach(var v in Model) {
+<tr><td>@v.Name</td><td>@v.Quantity</td><td>@v.ReservedToday</td><td><strong>@v.AvailableToday</strong></td><td>@v.TotalBooked</td>
+<td><a href="@Url.Action("VehicleEdit","Admin",new{id=v.VehicleId})">Sửa kho</a></td></tr>
+}
+@if(!Model.Any()){<tr><td colspan="6" class="text-muted">Không có xe trong danh sách.</td></tr>}
+</tbody></table></div>

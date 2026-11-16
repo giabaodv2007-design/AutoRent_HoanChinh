@@ -1,0 +1,4 @@
+﻿@model AutoRent.ViewModels.OrderDetailVm
+@{ ViewBag.Title = "Chi tiết đơn hàng"; }
+<div class="py-4"><a href="@Url.Action("Index")">← Lịch sử đơn hàng</a></div>
+@Html.Partial("~/Views/Shared/_OrderDetail.cshtml", Model)

@@ -1,0 +1,13 @@
+﻿@model AutoRent.ViewModels.VehicleDetailVm
+@{ ViewBag.Title=Model.Vehicle.Name; }
+<div class="py-4"><a href="@Url.Action("Index","Home")">← Về danh sách xe</a></div>
+@Html.Partial("~/Views/Shared/_VehicleInfo.cshtml",Model)
+@if(Model.Related.Any()) {
+    <h4 class="fw-bold mt-4">Xe cùng danh mục</h4>
+    <div class="row g-3">
+    @foreach(var v in Model.Related) {
+        <div class="col-md-4"><div class="card vehicle-card"><img src="@Url.Content(v.ImageUrl??"~/Content/images/placeholder.svg")" alt="@v.Name" />
+            <div class="card-body"><h5>@v.Name</h5><p>@v.DailyPrice.ToString("N0") ₫ / ngày</p>
+            <a class="btn btn-outline-primary" href="@Url.Action("Details","Home",new{id=v.VehicleId})">Xem chi tiết</a></div></div></div>
+    }</div>
+}

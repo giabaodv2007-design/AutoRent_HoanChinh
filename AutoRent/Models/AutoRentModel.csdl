@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<edm:Schema xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx" xmlns:msl="http://schemas.microsoft.com/ado/2009/11/mapping/cs" xmlns:ssdl="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="AutoRentModel" Alias="Self">
+        <edm:EntityContainer Name="AutoRentEntities" annotation:LazyLoadingEnabled="false">
+          <edm:EntitySet Name="Categories" EntityType="AutoRentModel.Category"/>
+          <edm:EntitySet Name="Vehicles" EntityType="AutoRentModel.Vehicle"/>
+          <edm:EntitySet Name="Users" EntityType="AutoRentModel.User"/>
+          <edm:EntitySet Name="Orders" EntityType="AutoRentModel.Order"/>
+          <edm:EntitySet Name="OrderItems" EntityType="AutoRentModel.OrderItem"/>
+        </edm:EntityContainer>
+        <edm:EntityType Name="Category">
+          <edm:Key>
+            <edm:PropertyRef Name="CategoryId"/>
+          </edm:Key>
+          <edm:Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <edm:Property Name="Name" Type="String" Nullable="false" MaxLength="80" Unicode="true"/>
+          <edm:Property Name="Description" Type="String" Nullable="true" MaxLength="255" Unicode="true"/>
+        </edm:EntityType>
+        <edm:EntityType Name="Vehicle">
+          <edm:Key>
+            <edm:PropertyRef Name="VehicleId"/>
+          </edm:Key>
+          <edm:Property Name="VehicleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <edm:Property Name="CategoryId" Type="Int32" Nullable="false"/>
+          <edm:Property Name="Name" Type="String" Nullable="false" MaxLength="120" Unicode="true"/>
+          <edm:Property Name="Brand" Type="String" Nullable="true" MaxLength="80" Unicode="true"/>
+          <edm:Property Name="Description" Type="String" Nullable="true" MaxLength="1000" Unicode="true"/>
+          <edm:Property Name="DailyPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="Deposit" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="ImageUrl" Type="String" Nullable="true" MaxLength="300" Unicode="true"/>
+          <edm:Property Name="IsAvailable" Type="Boolean" Nullable="false"/>
+          <edm:Property Name="Quantity" Type="Int32" Nullable="false" />
+        </edm:EntityType>
+        <edm:EntityType Name="User">
+          <edm:Key>
+            <edm:PropertyRef Name="UserId"/>
+          </edm:Key>
+          <edm:Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <edm:Property Name="FullName" Type="String" Nullable="false" MaxLength="100" Unicode="true"/>
+          <edm:Property Name="Email" Type="String" Nullable="false" MaxLength="150" Unicode="true"/>
+          <edm:Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="200" Unicode="true"/>
+          <edm:Property Name="Role" Type="String" Nullable="false" MaxLength="20" Unicode="true"/>
+          <edm:Property Name="IsActive" Type="Boolean" Nullable="false"/>
+          <edm:Property Name="Phone" Type="String" Nullable="true" MaxLength="20" Unicode="true" />
+        </edm:EntityType>
+        <edm:EntityType Name="Order">
+          <edm:Key>
+            <edm:PropertyRef Name="OrderId"/>
+          </edm:Key>
+          <edm:Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <edm:Property Name="UserId" Type="Int32" Nullable="false"/>
+          <edm:Property Name="CreatedAt" Type="DateTime" Nullable="false"/>
+          <edm:Property Name="Status" Type="String" Nullable="false" MaxLength="20" Unicode="true"/>
+          <edm:Property Name="TotalRent" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="TotalDeposit" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="CustomerPhone" Type="String" Nullable="false" MaxLength="20" Unicode="true"/>
+          <edm:Property Name="Note" Type="String" Nullable="true" MaxLength="500" Unicode="true"/>
+        </edm:EntityType>
+        <edm:EntityType Name="OrderItem">
+          <edm:Key>
+            <edm:PropertyRef Name="OrderItemId"/>
+          </edm:Key>
+          <edm:Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity"/>
+          <edm:Property Name="OrderId" Type="Int32" Nullable="false"/>
+          <edm:Property Name="VehicleId" Type="Int32" Nullable="false"/>
+          <edm:Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0"/>
+          <edm:Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0"/>
+          <edm:Property Name="Days" Type="Int32" Nullable="false"/>
+          <edm:Property Name="Quantity" Type="Int32" Nullable="false" />
+          <edm:Property Name="PricePerDay" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="Deposit" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+          <edm:Property Name="RentAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2"/>
+        </edm:EntityType>
+      </edm:Schema>
+    

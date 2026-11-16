@@ -1,0 +1,38 @@
+﻿@model AutoRent.ViewModels.CartVm
+@{ ViewBag.Title="Giỏ hàng"; }
+<div class="d-flex justify-content-between align-items-center py-4">
+    <h2 class="fw-bold">🛒 Giỏ hàng (@Model.TotalItems xe)</h2>
+    <a class="btn btn-outline-primary" href="@Url.Action("Index","Home")">+ Tiếp tục chọn xe</a>
+</div>
+@if(!Model.Items.Any()) {
+    <div class="alert alert-info">Giỏ hàng trống, <a href="@Url.Action("Index","Home")">chọn xe ngay</a>.</div>
+} else {
+    <div class="card p-2 table-responsive"><table class="table align-middle mb-0">
+        <thead><tr><th>Xe</th><th>Ngày thuê</th><th>Số ngày</th><th>Số xe</th><th>Giá/ngày</th><th>Tiền thuê</th><th>Cọc</th><th></th></tr></thead>
+        <tbody>
+        @for(int i=0;i<Model.Items.Count;i++) {
+            var x=Model.Items[i];
+            <tr>
+                <td class="fw-bold">@x.Name</td><td>@x.StartDate.ToString("dd/MM/yyyy") – @x.EndDate.ToString("dd/MM/yyyy")</td>
+                <td>@x.Days</td><td>
+                    @using(Html.BeginForm("Update","Cart",FormMethod.Post,new{@class="d-flex gap-1"})) {
+                        @Html.AntiForgeryToken()<input type="hidden" name="index" value="@i" />
+                        <input type="number" name="quantity" min="1" max="100" value="@x.Quantity" class="form-control form-control-sm" style="width:75px" />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Lưu</button>
+                    }
+                </td><td>@x.DailyPrice.ToString("N0") ₫</td><td>@x.RentAmount.ToString("N0") ₫</td><td>@x.DepositAmount.ToString("N0") ₫</td>
+                <td>@using(Html.BeginForm("Remove","Cart",FormMethod.Post)) {
+                    @Html.AntiForgeryToken()<input type="hidden" name="index" value="@i" />
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Xóa</button>
+                }</td>
+            </tr>
+        }
+        </tbody>
+    </table></div>
+    <div class="row justify-content-end mt-4"><div class="col-md-5"><div class="card p-4">
+        <div class="d-flex justify-content-between"><span>Tổng tiền thuê</span><strong>@Model.TotalRent.ToString("N0") ₫</strong></div><hr/>
+        <div class="d-flex justify-content-between"><span>Tổng tiền cọc</span><strong>@Model.TotalDeposit.ToString("N0") ₫</strong></div>
+        <p class="text-muted small">Tiền cọc tính riêng. Website chưa thanh toán trực tuyến.</p>
+        <a class="btn btn-warning fw-bold" href="@Url.Action("Checkout","Cart")">Tiến hành đặt xe</a>
+    </div></div></div>
+}

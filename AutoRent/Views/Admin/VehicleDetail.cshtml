@@ -1,0 +1,5 @@
+﻿@model AutoRent.ViewModels.VehicleDetailVm
+@{ ViewBag.Title="Chi tiết xe (Admin)"; }
+<div class="py-3"><a href="@Url.Action("Vehicles")">← Quay lại danh sách xe</a></div>
+@Html.Partial("~/Views/Shared/_VehicleInfo.cshtml",Model)
+<a class="btn btn-primary" href="@Url.Action("VehicleEdit",new{id=Model.Vehicle.VehicleId})">Sửa xe</a>

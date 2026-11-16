@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<msl:Mapping xmlns:msl="http://schemas.microsoft.com/ado/2009/11/mapping/cs" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:edm="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx" xmlns:ssdl="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Space="C-S">
+        <msl:EntityContainerMapping StorageEntityContainer="AutoRentModelStoreContainer" CdmEntityContainer="AutoRentEntities">
+          <msl:EntitySetMapping Name="Categories">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Category">
+              <msl:MappingFragment StoreEntitySet="Categories">
+                <msl:ScalarProperty Name="CategoryId" ColumnName="CategoryId"/>
+                <msl:ScalarProperty Name="Name" ColumnName="Name"/>
+                <msl:ScalarProperty Name="Description" ColumnName="Description"/>
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Vehicles">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Vehicle">
+              <msl:MappingFragment StoreEntitySet="Vehicles">
+                <msl:ScalarProperty Name="VehicleId" ColumnName="VehicleId"/>
+                <msl:ScalarProperty Name="CategoryId" ColumnName="CategoryId"/>
+                <msl:ScalarProperty Name="Name" ColumnName="Name"/>
+                <msl:ScalarProperty Name="Brand" ColumnName="Brand"/>
+                <msl:ScalarProperty Name="Description" ColumnName="Description"/>
+                <msl:ScalarProperty Name="DailyPrice" ColumnName="DailyPrice"/>
+                <msl:ScalarProperty Name="Deposit" ColumnName="Deposit"/>
+                <msl:ScalarProperty Name="ImageUrl" ColumnName="ImageUrl"/>
+                <msl:ScalarProperty Name="IsAvailable" ColumnName="IsAvailable"/>
+                <msl:ScalarProperty Name="Quantity" ColumnName="Quantity"/>
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Users">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.User">
+              <msl:MappingFragment StoreEntitySet="Users">
+                <msl:ScalarProperty Name="UserId" ColumnName="UserId"/>
+                <msl:ScalarProperty Name="FullName" ColumnName="FullName"/>
+                <msl:ScalarProperty Name="Email" ColumnName="Email"/>
+                <msl:ScalarProperty Name="PasswordHash" ColumnName="PasswordHash"/>
+                <msl:ScalarProperty Name="Role" ColumnName="Role"/>
+                <msl:ScalarProperty Name="IsActive" ColumnName="IsActive"/>
+                <msl:ScalarProperty Name="Phone" ColumnName="Phone"/>
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="Orders">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.Order">
+              <msl:MappingFragment StoreEntitySet="Orders">
+                <msl:ScalarProperty Name="OrderId" ColumnName="OrderId"/>
+                <msl:ScalarProperty Name="UserId" ColumnName="UserId"/>
+                <msl:ScalarProperty Name="CreatedAt" ColumnName="CreatedAt"/>
+                <msl:ScalarProperty Name="Status" ColumnName="Status"/>
+                <msl:ScalarProperty Name="TotalRent" ColumnName="TotalRent"/>
+                <msl:ScalarProperty Name="TotalDeposit" ColumnName="TotalDeposit"/>
+                <msl:ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone"/>
+                <msl:ScalarProperty Name="Note" ColumnName="Note"/>
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+          <msl:EntitySetMapping Name="OrderItems">
+            <msl:EntityTypeMapping TypeName="AutoRentModel.OrderItem">
+              <msl:MappingFragment StoreEntitySet="OrderItems">
+                <msl:ScalarProperty Name="OrderItemId" ColumnName="OrderItemId"/>
+                <msl:ScalarProperty Name="Quantity" ColumnName="Quantity"/>
+                <msl:ScalarProperty Name="OrderId" ColumnName="OrderId"/>
+                <msl:ScalarProperty Name="VehicleId" ColumnName="VehicleId"/>
+                <msl:ScalarProperty Name="StartDate" ColumnName="StartDate"/>
+                <msl:ScalarProperty Name="EndDate" ColumnName="EndDate"/>
+                <msl:ScalarProperty Name="Days" ColumnName="Days"/>
+                <msl:ScalarProperty Name="PricePerDay" ColumnName="PricePerDay"/>
+                <msl:ScalarProperty Name="Deposit" ColumnName="Deposit"/>
+                <msl:ScalarProperty Name="RentAmount" ColumnName="RentAmount"/>
+              </msl:MappingFragment>
+            </msl:EntityTypeMapping>
+          </msl:EntitySetMapping>
+        </msl:EntityContainerMapping>
+      </msl:Mapping>
+    

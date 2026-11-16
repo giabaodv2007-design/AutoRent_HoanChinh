@@ -1,0 +1,14 @@
+﻿@model IEnumerable<AutoRent.ViewModels.CategoryRowVm>
+@{ ViewBag.Title="Quản lý danh mục"; }
+<h2 class="fw-bold">Danh mục xe</h2>
+<a href="@Url.Action("CategoryCreate")" class="btn btn-success mb-3">+ Thêm danh mục</a>
+<div class="card p-2 table-responsive"><table class="table mb-0"><thead><tr><th>ID</th><th>Tên danh mục</th><th>Mô tả</th><th>Tổng mẫu xe</th><th>Thao tác</th></tr></thead>
+<tbody>@foreach(var c in Model) {
+    <tr><td>@c.CategoryId</td><td>@c.Name</td><td>@c.Description</td><td><span class="badge bg-primary">@c.VehicleCount mẫu</span></td><td>
+        <a class="btn btn-outline-info btn-sm" href="@Url.Action("CategoryDetail",new{id=c.CategoryId})">Chi tiết</a>
+        <a class="btn btn-outline-primary btn-sm" href="@Url.Action("CategoryEdit",new{id=c.CategoryId})">Sửa</a>
+        @using(Html.BeginForm("CategoryDelete","Admin",new{id=c.CategoryId},FormMethod.Post,new{style="display:inline"})) {
+            @Html.AntiForgeryToken()<button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('Xóa danh mục này?')">Xóa</button>
+        }
+    </td></tr>
+}</tbody></table></div>

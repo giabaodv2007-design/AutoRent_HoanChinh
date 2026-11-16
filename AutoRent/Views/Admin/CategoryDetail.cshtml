@@ -1,0 +1,13 @@
+﻿@model AutoRent.ViewModels.CategoryDetailVm
+@{ ViewBag.Title="Chi tiết danh mục"; }
+<h2 class="fw-bold">@Model.Name</h2><p>@Model.Description</p>
+<h4>Danh sách xe thuộc danh mục (@Model.Vehicles.Count)</h4>
+<div class="card table-responsive p-2"><table class="table"><thead><tr><th>Ảnh</th><th>Tên xe</th><th>Giá/ngày</th><th>Số xe trong đội</th><th></th></tr></thead><tbody>
+@foreach(var v in Model.Vehicles) {
+<tr><td><img src="@Url.Content(v.ImageUrl??"~/Content/images/placeholder.svg")" width="95" height="65" style="object-fit:contain" /></td>
+    <td>@v.Name</td><td>@v.DailyPrice.ToString("N0") ₫</td><td>@v.Quantity</td>
+    <td><a href="@Url.Action("VehicleDetail",new{id=v.VehicleId})">Chi tiết</a></td></tr>
+}
+@if(!Model.Vehicles.Any()){<tr><td colspan="5" class="text-muted">Danh mục chưa có xe.</td></tr>}
+</tbody></table></div>
+<a class="btn btn-secondary mt-3" href="@Url.Action("Categories")">Quay lại</a>

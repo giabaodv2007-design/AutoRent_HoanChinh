@@ -1,0 +1,13 @@
+﻿@model AutoRent.ViewModels.CategoryFormVm
+@{ bool edit=ViewBag.IsEdit==true; ViewBag.Title=edit?"Sửa danh mục":"Thêm danh mục"; }
+<h2 class="fw-bold">@ViewBag.Title</h2>
+<div class="card p-4 col-lg-7">
+@using(Html.BeginForm(edit?"CategoryEdit":"CategoryCreate","Admin",FormMethod.Post)) {
+    @Html.AntiForgeryToken()@Html.HiddenFor(x=>x.CategoryId)
+    @Html.ValidationSummary(false,"",new{@class="text-danger"})
+    <div class="mb-3"><label class="form-label">Tên danh mục *</label>@Html.TextBoxFor(x=>x.Name,new{@class="form-control",required="required",maxlength="80"})</div>
+    <div class="mb-3"><label class="form-label">Mô tả</label>@Html.TextAreaFor(x=>x.Description,new{@class="form-control",maxlength="255",rows="3"})</div>
+    <button type="submit" class="btn btn-primary">Lưu danh mục</button>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Categories")">Quay lại</a>
+}
+</div>

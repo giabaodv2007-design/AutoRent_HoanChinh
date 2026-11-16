@@ -1,0 +1,58 @@
+﻿@model AutoRent.ViewModels.VehiclePageVm
+@{ ViewBag.Title="Chọn xe tự lái"; }
+<section class="hero hero-cover">
+    <div class="hero-text">
+        <span class="badge bg-warning text-dark mb-3">Thuê xe tự lái · Giá rõ ràng</span>
+        <h1>Đi bất cứ đâu, chọn xe bạn thích.</h1>
+        <p>Đặt xe máy và ô tô theo ngày. Xem giá thuê, tiền cọc và số xe có sẵn trực tuyến.</p>
+        <a href="#vehicles" class="btn btn-warning btn-lg fw-bold">Khám phá xe ngay</a>
+    </div>
+    <img class="hero-art" src="@Url.Content("~/Content/images/banner.png")" alt="AutoRent - các loại xe máy và ô tô" />
+</section>
+<section id="vehicles" class="py-5">
+    <div class="d-flex justify-content-between align-items-end mb-3"><div><h2 class="fw-bold mb-1">Danh sách xe</h2>
+        <p class="text-muted mb-0">Tìm xe phù hợp với nhu cầu của bạn</p></div>
+        <span class="text-muted">@Model.TotalCount xe phù hợp</span></div>
+    @using(Html.BeginForm("Index","Home",FormMethod.Get,new{@class="card p-3 mb-4"})) {
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3"><label class="form-label">Tên / hãng / mô tả</label>
+                <input class="form-control" name="q" value="@Model.Q" placeholder="Honda, Toyota..." /></div>
+            <div class="col-md-3"><label class="form-label">Loại xe</label>
+                <select class="form-select" name="categoryId"><option value="">Tất cả</option>
+                @foreach(var c in Model.Categories) {
+                    <option value="@c.CategoryId" selected="@(Model.CategoryId==c.CategoryId ? "selected":null)">@c.Name</option>
+                }</select></div>
+            <div class="col-md-2"><label class="form-label">Giá tối đa/ngày</label>
+                <input type="number" min="0" step="1000" class="form-control" name="maxPrice" value="@Model.MaxPrice" /></div>
+            <div class="col-md-2"><label class="form-label">Sắp xếp</label><select class="form-select" name="sort">
+                <option value="price-asc" selected="@(Model.Sort=="price-asc"?"selected":null)">Giá tăng</option>
+                <option value="price-desc" selected="@(Model.Sort=="price-desc"?"selected":null)">Giá giảm</option>
+                <option value="newest" selected="@(Model.Sort=="newest"?"selected":null)">Xe mới</option>
+            </select></div>
+            <div class="col-md-2 d-grid"><button type="submit" class="btn btn-primary">Tìm kiếm</button></div>
+        </div>
+    }
+    <div class="row g-4">
+    @foreach(var v in Model.Vehicles) {
+        <div class="col-sm-6 col-lg-4"><div class="card vehicle-card">
+            <a href="@Url.Action("Details","Home",new{id=v.VehicleId})"><img src="@Url.Content(v.ImageUrl??"~/Content/images/placeholder.svg")" alt="@v.Name" /></a>
+            <div class="card-body">
+                <span class="info-chip mb-2">@Model.Categories.Where(c=>c.CategoryId==v.CategoryId).Select(c=>c.Name).FirstOrDefault()</span>
+                <h5 class="fw-bold">@v.Name</h5><p class="text-muted small">@v.Brand · @v.Quantity xe trong đội</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div><div class="price">@v.DailyPrice.ToString("N0") ₫</div><small class="text-muted">/ ngày</small></div>
+                    <a class="btn btn-primary" href="@Url.Action("Details","Home",new{id=v.VehicleId})">Chi tiết / Thuê</a>
+                </div>
+            </div>
+        </div></div>
+    }
+    @if(!Model.Vehicles.Any()) { <div class="col-12"><div class="alert alert-info">Không tìm thấy xe phù hợp.</div></div> }
+    </div>
+    @if(Model.TotalPages>1) {
+        <nav aria-label="Phân trang xe" class="my-4"><ul class="pagination justify-content-center">
+        @for(int p=1;p<=Model.TotalPages;p++) {
+            <li class="page-item @(p==Model.Page?"active":"")"><a class="page-link" href="@Url.Action("Index","Home",new{q=Model.Q,categoryId=Model.CategoryId,maxPrice=Model.MaxPrice,sort=Model.Sort,page=p})">@p</a></li>
+        }
+        </ul></nav>
+    }
+</section>

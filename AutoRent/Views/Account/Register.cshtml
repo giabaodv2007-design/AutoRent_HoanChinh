@@ -1,0 +1,16 @@
+﻿@model AutoRent.ViewModels.RegisterVm
+@{ ViewBag.Title = "Đăng ký"; }
+<div class="row justify-content-center py-5"><div class="col-md-6 col-lg-5">
+    <div class="card p-4"><h2 class="fw-bold mb-3">Tạo tài khoản</h2>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @class="text-danger mb-3" })
+            <div class="mb-3"><label class="form-label">Họ tên</label>@Html.TextBoxFor(x=>x.FullName, new {@class="form-control", required="required"})</div>
+            <div class="mb-3"><label class="form-label">Email</label>@Html.TextBoxFor(x=>x.Email, new {@class="form-control", type="email", required="required"})</div>
+            <div class="mb-3"><label class="form-label">Mật khẩu</label>@Html.PasswordFor(x=>x.Password, new {@class="form-control", required="required"})</div>
+            <div class="mb-3"><label class="form-label">Nhập lại mật khẩu</label>@Html.PasswordFor(x=>x.ConfirmPassword, new {@class="form-control", required="required"})</div>
+            <button class="btn btn-primary w-100" type="submit">Đăng ký</button>
+        }
+        <p class="text-muted mt-3 mb-0">Đã có tài khoản? <a href="@Url.Action("Login")">Đăng nhập</a></p>
+    </div>
+</div></div>

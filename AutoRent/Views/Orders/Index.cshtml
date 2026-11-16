@@ -1,0 +1,4 @@
+﻿@model IEnumerable<AutoRent.ViewModels.OrderRowVm>
+@{ ViewBag.Title="Lịch sử giao dịch"; }
+<h2 class="fw-bold my-4">Lịch sử thuê xe của tôi</h2>
+@Html.Partial("~/Views/Shared/_OrdersTable.cshtml",Model,new ViewDataDictionary{{"IsAdmin",false}})

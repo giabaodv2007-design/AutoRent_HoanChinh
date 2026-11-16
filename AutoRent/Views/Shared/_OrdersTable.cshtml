@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AutoRent.ViewModels.OrderRowVm>
+@{ bool admin=ViewData["IsAdmin"]!=null && (bool)ViewData["IsAdmin"]; }
+<div class="card p-2 table-responsive"><table class="table mb-0">
+    <thead><tr><th>Mã đơn</th>@if(admin){<th>Khách hàng</th>}<th>Ngày đặt</th><th>Tiền thuê</th><th>Cọc</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>
+    @foreach(var o in Model) {
+        <tr>
+            <td>#@o.OrderId</td>
+            @if (admin)
+            {
+                <td>@o.CustomerName</td>
+}
+            <td>@o.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+            <td>@o.TotalRent.ToString("N0") ₫</td>
+            <td>@o.TotalDeposit.ToString("N0") ₫</td>
+            <td><span class="badge bg-info text-dark">@o.Status</span></td>
+            <td><a class="btn btn-outline-primary btn-sm" href="@(admin?Url.Action("OrderDetail","Admin",new{id=o.OrderId}):Url.Action("Details","Orders",new{id=o.OrderId}))">Chi tiết</a></td>
+
+        </tr>
+    }
+    @if(!Model.Any()) { <tr><td colspan="7" class="text-center text-muted py-4">Chưa có đơn hàng.</td></tr> }
+    </tbody>
+</table></div>

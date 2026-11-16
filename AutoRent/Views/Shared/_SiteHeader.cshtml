@@ -1,0 +1,39 @@
+﻿@model AutoRent.ViewModels.SiteHeaderVm
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+<div class="container">
+    <a class="navbar-brand fw-bold" href="@Url.Action("Index","Home")">🚘 AutoRent</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+    <div id="mainNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Home")">Tất cả xe</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Danh mục xe</a>
+                <ul class="dropdown-menu">
+                    @foreach(var c in Model.Categories) {
+                        <li><a class="dropdown-item" href="@Url.Action("Index","Home",new{categoryId=c.CategoryId})">@c.Name</a></li>
+                    }
+                </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Cart")">🛒 Giỏ hàng <span class="badge bg-warning text-dark">@Model.CartCount</span></a></li>
+            @if (Model.IsAdmin) { <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Admin")">⚙ Quản trị</a></li> }
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+        @if(Model.IsSignedIn) {
+            <div class="dropdown">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">👤 @Model.FullName</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="@Url.Action("Profile","Account")">Hồ sơ khách hàng</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Index","Orders")">Lịch sử giao dịch</a></li>
+                </ul>
+            </div>
+            using(Html.BeginForm("Logout","Account",FormMethod.Post,new{@class="m-0"})) {
+                @Html.AntiForgeryToken()<button class="btn btn-outline-light btn-sm" type="submit">Đăng xuất</button>
+            }
+        } else {
+            <a class="btn btn-outline-light btn-sm" href="@Url.Action("Login","Account")">Đăng nhập</a>
+            <a class="btn btn-warning btn-sm" href="@Url.Action("Register","Account")">Đăng ký</a>
+        }
+        </div>
+    </div>
+</div>
+</nav>

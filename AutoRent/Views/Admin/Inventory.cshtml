@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AutoRent.ViewModels.VehicleListVm>
+@{ ViewBag.Title="Kho xe / tình trạng"; }
+<h2 class="fw-bold">Kho xe cho thuê</h2>
+<p class="text-muted">Số trống hôm nay = số xe trong đội - số xe có lịch thuê trùng ngày hôm nay. Khi hết thời gian thuê xe trở lại trạng thái trống.</p>
+<h4 class="mt-4">Xe còn trống hôm nay (@Model.Count(x=>x.AvailableToday>0))</h4>
+@Html.Partial("~/Views/Admin/_InventoryTable.cshtml",Model.Where(x=>x.AvailableToday>0).ToList())
+<h4 class="mt-5">Xe hết chỗ / cần bổ sung (@Model.Count(x=>x.AvailableToday==0))</h4>
+@Html.Partial("~/Views/Admin/_InventoryTable.cshtml",Model.Where(x=>x.AvailableToday==0).ToList())

@@ -1,0 +1,14 @@
+﻿@model AutoRent.ViewModels.OrderDetailVm
+@{ ViewBag.Title="Hóa đơn và cập nhật trạng thái"; }
+<h2 class="fw-bold">Chi tiết đơn thuê xe</h2>
+@Html.Partial("~/Views/Shared/_OrderDetail.cshtml",Model)
+<div class="card p-3"><h5>Đổi trạng thái đơn hàng</h5>
+@using(Html.BeginForm("UpdateOrderStatus","Admin",FormMethod.Post)) {
+    @Html.AntiForgeryToken()<input type="hidden" name="id" value="@Model.Order.OrderId" />
+    <div class="row g-2"><div class="col-md-5"><select class="form-select" name="status">
+        <option value="Chờ duyệt" selected="@(Model.Order.Status=="Chờ duyệt"?"selected":null)">Chờ duyệt</option>
+        <option value="Đang giao" selected="@(Model.Order.Status=="Đang giao"?"selected":null)">Đang giao</option>
+        <option value="Đã giao" selected="@(Model.Order.Status=="Đã giao"?"selected":null)">Đã giao</option>
+    </select></div><div class="col-md-3"><button type="submit" class="btn btn-primary">Cập nhật</button></div></div>
+}
+</div>

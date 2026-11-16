@@ -1,0 +1,8 @@
+﻿@model AutoRent.ViewModels.CustomerDetailVm
+@{ ViewBag.Title="Chi tiết khách hàng"; }
+<h2 class="fw-bold">Hồ sơ khách hàng</h2>
+<div class="card p-4 mb-4"><p><b>Họ tên:</b> @Model.Customer.FullName</p>
+<p><b>Email:</b> @Model.Customer.Email</p><p><b>Điện thoại:</b> @Model.Customer.Phone</p>
+<p><b>Tài khoản:</b> @(Model.Customer.IsActive?"Hoạt động":"Đã khóa")</p></div>
+<h4>Lịch sử đơn hàng (@Model.Orders.Count)</h4>
+@Html.Partial("~/Views/Shared/_OrdersTable.cshtml",Model.Orders,new ViewDataDictionary{{"IsAdmin",true}})

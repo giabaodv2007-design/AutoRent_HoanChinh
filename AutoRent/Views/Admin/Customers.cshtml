@@ -1,0 +1,9 @@
+﻿@model IEnumerable<AutoRent.Models.User>
+@{ ViewBag.Title="Khách hàng"; }
+<h2 class="fw-bold">Danh sách khách hàng</h2><p class="text-muted">Chỉ xem, không thêm/sửa/xóa ở trang này.</p>
+<div class="card table-responsive p-2"><table class="table mb-0"><thead><tr><th>Họ tên</th><th>Email</th><th>Điện thoại</th><th>Trạng thái</th><th></th></tr></thead><tbody>
+@foreach(var u in Model) {
+<tr><td>@u.FullName</td><td>@u.Email</td><td>@u.Phone</td><td>@(u.IsActive?"Hoạt động":"Đã khóa")</td>
+<td><a class="btn btn-outline-primary btn-sm" href="@Url.Action("CustomerDetail",new{id=u.UserId})">Hồ sơ và đơn</a></td></tr>
+}
+</tbody></table></div>
