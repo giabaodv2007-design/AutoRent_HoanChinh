@@ -1,5 +1,4 @@
--- AUTO RENT V3 - CHAY MOT LAN (co the chay lai), KHONG XOA DU LIEU.
--- SSMS: mo file, nhan Execute (F5) sau khi SAO LUU database.
+
 USE AutoRentDB_V2;
 GO
 IF OBJECT_ID(N'dbo.Vehicles',N'U') IS NULL OR OBJECT_ID(N'dbo.Users',N'U') IS NULL OR OBJECT_ID(N'dbo.OrderItems',N'U') IS NULL
@@ -22,7 +21,6 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name='IX_OrderItems_VehicleDates' AND object_id=OBJECT_ID('dbo.OrderItems'))
     CREATE INDEX IX_OrderItems_VehicleDates ON dbo.OrderItems(VehicleId,StartDate,EndDate);
 GO
--- Chi thay anh SVG mac dinh, KHONG ghi de anh ban da upload.
 UPDATE dbo.Vehicles SET ImageUrl = CASE Name
  WHEN N'Honda Vision' THEN N'~/Content/images/honda-vision.png'
  WHEN N'Honda Air Blade' THEN N'~/Content/images/honda-air-blade.png'
